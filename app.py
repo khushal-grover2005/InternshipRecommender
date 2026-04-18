@@ -1,5 +1,6 @@
 import os
 import sys
+sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 import pandas as pd
 import PyPDF2
 from flask import Flask, request, render_template
