@@ -62,7 +62,7 @@ class DataTransformation:
 
            logging.info('Data cleaned') 
             
-           tfidf = TfidfVectorizer(max_features=5000)
+           tfidf = TfidfVectorizer(max_features=1000)
 
             
            train_feature_arr = tfidf.fit_transform(train_df['Content']).toarray()
