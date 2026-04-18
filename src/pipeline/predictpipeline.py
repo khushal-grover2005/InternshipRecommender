@@ -1,7 +1,6 @@
 import sys
 import os
-import pandas as pd
-import gc  # Garbage Collector to save RAM
+import gc 
 from src.exception import CustomException
 from src.utils import load_object
 from sklearn.metrics.pairwise import cosine_similarity
@@ -15,24 +14,24 @@ class PredictPipeline:
             model_path = os.path.join("artifacts", "model.pkl")
             preprocessor_path = os.path.join("artifacts", "preprocessor.pkl")
 
-            # 1. Load the objects
+            # 1. Load objects into memory
             model = load_object(file_path=model_path)
             preprocessor = load_object(file_path=preprocessor_path)
 
-            # 2. Transform input
+            # 2. Transform the new user input (returns a sparse row)
             data_scaled = preprocessor.transform([features])
 
-            # 3. Calculate Similarity
+            # 3. Calculate Similarity (Scikit-learn handles sparse-to-sparse very fast)
             similarity_scores = cosine_similarity(data_scaled, model)
 
-            # 4. Get Top 5
+            # 4. Get Top 5 Indices
             top_indices = similarity_scores[0].argsort()[-5:][::-1]
             scores = similarity_scores[0][top_indices]
 
-            # 5. CRITICAL: Manual Memory Cleanup for Render Free Tier
+            # 5. MEMORY MANAGEMENT: Clear heavy objects before returning
             del model
             del preprocessor
-            gc.collect()
+            gc.collect() 
 
             return top_indices, scores
 
