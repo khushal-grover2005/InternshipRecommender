@@ -6,4 +6,3 @@ spacy
 PyPDF2
 dill
 gunicorn
--e .
