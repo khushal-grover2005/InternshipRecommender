@@ -32,7 +32,7 @@ class DataTransformation:
             test_df[target_column] = test_df[target_column].fillna('')
 
             # 1000 features is plenty for internship matching and saves HUGE RAM
-            tfidf = TfidfVectorizer(max_features=1000, stop_words='english')
+            tfidf = TfidfVectorizer(max_features=2000, stop_words='english')
 
             logging.info("Applying TF-IDF transformation")
             
